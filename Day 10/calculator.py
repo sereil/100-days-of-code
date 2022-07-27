@@ -1,5 +1,5 @@
 import art
-
+import os
 
 logo = art.logo
 
@@ -24,31 +24,31 @@ operations = {
 "/":divide
 }
 
-calc = True
 
-def calculate(n1):
-    if n1 is None:        
-        first_num = int(input("What's the first number?: "))
-    else:
-        print(f"Your first number is {n1}")
-        first_num = n1
 
-    second_num = int(input("What's the second number?: "))
+    
 
+def calculate():
+    print(logo)
+    first_num = float(input("What's the first number?: "))
     for operand in operations:
         print(operand)
-    operation_symbol = input("Pick an operation from the line above: ")
 
-    calculation_function = operations[operation_symbol]
-    answer = calculation_function(first_num, second_num)
+    calc = True
+    should_continue = True
+    while should_continue == True: 
+        operation_symbol = input("Pick an operation: ")
+        next_num = float(input("What's the next number?: "))    
+        calculation_function = operations[operation_symbol]
+        answer = calculation_function(first_num, next_num)
 
-    print(f"{first_num} {operation_symbol} {second_num} = {answer}")
-    keep_calculating = input(f"Type 'y' to continue with {answer}, or type 'n' to exit.: ").lower()
+        print(f"{first_num} {operation_symbol} {next_num} = {answer}")
 
-    if keep_calculating == 'y':
-        calculate(answer)
-    elif keep_calculating == 'n':
-        print("Goodbye.")
+        if input(f"Type 'y' to continue with {answer}, or type 'n' to start again.: ").lower() == "y":
+            first_num = answer
+        else:
+            should_continue = False
+            first_num = calculate()
+            os.system("CLS") #Clear
 
-calculate(n1=None)        
-    
+calculate()
