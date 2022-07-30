@@ -143,7 +143,7 @@ while play_again == 'y':
         print(f"The dealer won with a {game_state['Dealer']['status']}.")    
 
     play_again = input("Would you like to play again? Type 'y' or 'n': ").lower()
-    if play_again != 'y' or play_again != 'n':
+    if play_again != 'y':
         play_again = input("You typed something wrong! Type 'y' or 'n' to play again: ").lower()
     else:
         os.system("CLS")
