@@ -28,18 +28,21 @@ cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
 #It would be nice to use a class here instead of a weird JSON format dict. 
 #Only doing this because I haven't learned classes yet in the course.
-game_state = {
-    "Player":{
-    "score":0,
-    "hand":[],
-    "status":"Playable"
-    },
-    "Dealer":{
-    "score":0,
-    "hand":[],
-    "status":"Playable"
+
+def initialize():
+    game_state = {
+        "Player":{
+        "score":0,
+        "hand":[],
+        "status":"Playable"
+        },
+        "Dealer":{
+        "score":0,
+        "hand":[],
+        "status":"Playable"
+        }
     }
-}
+    return game_state
 
 
 def deal_card(player_type, hand):
@@ -69,7 +72,7 @@ def show_state(player_type, hand):
     hand = game_state[player_type]["hand"]
     score = sum(hand)
     print(f"{player_type}'s hand: {hand}, current score: {score}")
- 
+
     
     
 
@@ -86,55 +89,63 @@ def calculate_score(player_type, is_playable):
                     
     return is_playable
 
+play_again = 'y'    
 play_game = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ").lower()
+while play_again == 'y':
+    game_state = initialize()
 
-if play_game == "y":
-    player_hand = []
-    dealer_hand = []    
     
-    for card in range(0,2):        
-        deal_card(player_type="Player", hand=player_hand)
 
-    deal_card(player_type="Dealer", hand=dealer_hand)
+    if play_game == "y":
+        player_hand = []
+        dealer_hand = []    
+        
+        for card in range(0,2):        
+            deal_card(player_type="Player", hand=player_hand)
+            deal_card(player_type="Dealer", hand=dealer_hand)
+        
 
-    keep_playing = True
-    # bust = False
-    # winner = False
-    # player_move == "hit" or bust == False
-    while keep_playing == True:
+        keep_playing = True
+        # bust = False
+        # winner = False
+        # player_move == "hit" or bust == False
+        while keep_playing == True:
+            os.system("CLS")
+            show_state(player_type="Player", hand=player_hand)
+            show_state(player_type="Dealer", hand=dealer_hand)
+            player_move = input("What is your next move? Type 'hit' or 'stand': ")
+
+            if player_move == "hit":
+                deal_card(player_type="Player", hand=player_hand)  
+                keep_playing = calculate_score(player_type="Player", is_playable = keep_playing)
+
+            elif player_move == "stand":
+                while game_state['Dealer']['score'] < 16:                
+                    deal_card(player_type="Dealer", hand=dealer_hand)
+                    keep_playing = calculate_score(player_type="Dealer", is_playable = keep_playing)
+                keep_playing = False #Done
+
+    print(f"Your cards: {player_hand}, score: {game_state['Player']['score']}")
+    print(f"Dealer's cards: {dealer_hand}, score: {game_state['Dealer']['score']}") 
+
+
+    player_score = game_state['Player']['score']
+    dealer_score = game_state['Dealer']['score']
+    if player_score > 21:
+        print(f"You bust!")
+    elif dealer_score > 21:
+        print(f"Dealer busts!")
+    elif player_score == dealer_score:
+        print(f"The player and the dealer tied!")
+    elif(player_score > dealer_score):
+        print(f"You win with a {game_state['Player']['status']}!")
+    else:
+        print(f"The dealer won with a {game_state['Dealer']['status']}.")    
+
+    play_again = input("Would you like to play again? Type 'y' or 'n': ").lower()
+    if play_again != 'y' or play_again != 'n':
+        play_again = input("You typed something wrong! Type 'y' or 'n' to play again: ").lower()
+    else:
         os.system("CLS")
-        show_state(player_type="Player", hand=player_hand)
-        show_state(player_type="Dealer", hand=dealer_hand)
-        player_move = input("What is your next move? Type 'hit' or 'stand': ")
-
-        if player_move == "hit":
-            deal_card(player_type="Player", hand=player_hand)  
-            keep_playing = calculate_score(player_type="Player", is_playable = keep_playing)
-
-        elif player_move == "stand":
-            while game_state['Dealer']['score'] < 16:                
-                deal_card(player_type="Dealer", hand=dealer_hand)
-                keep_playing = calculate_score(player_type="Dealer", is_playable = keep_playing)
-            keep_playing = False #Done
-
-print(f"Your cards: {player_hand}, score: {game_state['Player']['score']}")
-print(f"Dealer's cards: {dealer_hand}, score: {game_state['Dealer']['score']}") 
-
-
-player_score = game_state['Player']['score']
-dealer_score = game_state['Dealer']['score']
-if player_score > 21:
-    print(f"You bust!")
-elif dealer_score > 21:
-    print(f"Dealer busts!")
-elif player_score == dealer_score:
-    print(f"The player and the dealer tied!")
-elif(player_score > dealer_score):
-    print(f"You win with a {game_state['Player']['status']}!")
-else:
-    print(f"The dealer won with a {game_state['Dealer']['status']}.")    
-
-#TODO - Loop for "Continue playing"?
-#TODO - Split?
-#TODO - Bets?
+        print(logo)
 
