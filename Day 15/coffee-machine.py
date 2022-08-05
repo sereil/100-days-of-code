@@ -1,8 +1,13 @@
+from tabnanny import check
+from tkinter import OFF
 from menu import MENU, resources
+from os import system
 
-order = input("What would you like? (Espresso/Latte/Capuccino): ").lower()
+def clear():
+    system("cls")
 
-def turn_off():
+def turn_off_machine():
+    print("Goodbye.")
     exit
 
     
@@ -35,7 +40,15 @@ def take_resources(drink):
     for ingredient in drink_cost:
         print(ingredient)
         resources[ingredient] -= drink_cost[ingredient]
+    print(f"Here is your {drink}. Enjoy!")
 
+def store_coins(money):
+    if "money" in resources.keys():
+        resources["money"] += money
+    else:
+        resources.update({"money": money})
+        
+        
 def add_coins():
     sum_money = 0
     keep_adding = True    
@@ -43,8 +56,8 @@ def add_coins():
     coin_value= {
         "quarter": 0.25,
         "dime": 0.10,
-        "nickels": 0.05,
-        "penny": 0.01                
+        "nickel": 0.05,
+        "penny": 0.01             
     }
         
     while keep_adding:
@@ -60,24 +73,44 @@ def add_coins():
         elif keep_inserting == 'n':
             keep_adding = False
             return sum_money
-  
+
 def process_coins(drink):
-    money = add_coins()
     drink_cost = MENU[drink]["cost"]
+    print(f"Please insert ${drink_cost}")
+    money = add_coins()
+    
     if money == drink_cost:
-        print("No change")
+        store_coins(drink)
     elif money > drink_cost:
-        print("Change to be given")
+        difference = money - drink_cost
+        difference = round(difference,2)
+        print(f"Here's ${difference} dollars in change.")
+        store_coins(drink_cost)
     elif money < drink_cost:
         print("Sorry, that is not enough money. Money refunded.")
+        return False    
+    return True
     
-        
+def turn_on_machine():
+    generate_report()
+    #Just in case someone ever looks at this and is confused why there's an infinite loop.
+    print("Type 'off' if you wish to turn off the machine.")
+    order = input("What would you like? (Espresso/Latte/Cappuccino): ").lower()
+    clear()
     
+    if order == "off":
+        turn_off_machine()
+    else:
+        generate_report()
+        if not check_resources(order):
+            turn_on_machine()
+        else:
+            if process_coins(order):
+                take_resources(order)
+                turn_on_machine()
         
-        
-process_coins(order)
-#def process_coin()
-    
+
+turn_on_machine()
 
 
 
