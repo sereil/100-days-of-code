@@ -91,8 +91,7 @@ def process_coins(drink):
         return False    
     return True
     
-def turn_on_machine():
-    generate_report()
+def turn_on_machine():    
     #Just in case someone ever looks at this and is confused why there's an infinite loop.
     print("Type 'off' if you wish to turn off the machine.")
     order = input("What would you like? (Espresso/Latte/Cappuccino): ").lower()
@@ -102,6 +101,7 @@ def turn_on_machine():
         turn_off_machine()
     elif order == "report":
         generate_report()
+        turn_on_machine()
     else:
         if not check_resources(order):
             turn_on_machine()
