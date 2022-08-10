@@ -100,8 +100,9 @@ def turn_on_machine():
     
     if order == "off":
         turn_off_machine()
-    else:
+    elif order == "report":
         generate_report()
+    else:
         if not check_resources(order):
             turn_on_machine()
         else:
