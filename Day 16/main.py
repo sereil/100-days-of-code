@@ -20,7 +20,6 @@ while is_on:
         money_machine.report()
     else:
         order_item = menu.find_drink(order)
-        if coffee_machine.is_resource_sufficient(order_item):
-            if money_machine.make_payment(order_item.cost):
+        if coffee_machine.is_resource_sufficient(order_item) and money_machine.make_payment(order_item.cost):
                 coffee_machine.make_coffee(order_item)
 
