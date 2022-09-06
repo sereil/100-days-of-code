@@ -1,0 +1,33 @@
+Breakdown for Pong:
+
+Players:
+Each have a paddle that can move up and down
+
+Scoreboard:
+Shows score of each player on their respective sides
+The middle is also a dotted line separating each sides.
+
+The ball:
+The ball or the "pong" is used for scoring, if the player lets it past their paddle, the other player wins a point.
+Hitting back the pong seems a bit tricky, if you hit it going up it will go upwards, if you hit it with your paddle going down, it goes downwards.
+
+Boundaries:
+Boundaries of where the paddle and the ball can go.
+
+Profs' Breakdown:
+
+Create Screen
+
+Create and move a paddle
+
+Create another paddle
+
+Create the ball and make it move
+
+Detect collision with wall and abounce
+
+Detect collision with paddle
+
+Detect with paddle misses?
+
+Keep Score
