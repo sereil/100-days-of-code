@@ -1,4 +1,5 @@
 from turtle import Turtle, Screen
+from scoreboard import Scoreboard
 STARTING_POSITION = (0, -280)
 MOVE_DISTANCE = 10
 FINISH_LINE_Y = 280
@@ -10,12 +11,12 @@ class Player(Turtle):
         self.color("black")
         self.shape("turtle")
         self.penup()
-        self.goto(x=0,y=-270)
+        self.goto(STARTING_POSITION)
         self.setheading(90)
         self.movement()
 
     def move_forward(self):
-        self.forward(10)
+        self.forward(MOVE_DISTANCE)
 
     def movement(self):
         screen = Screen()
@@ -23,3 +24,9 @@ class Player(Turtle):
         screen.onkey(fun=self.move_forward, key="w")
         screen.onkey(fun=self.move_forward, key="Up")
 
+    def is_at_finish_line(self):
+        return self.ycor() >= FINISH_LINE_Y            
+
+    def level_up(self):
+        self.goto(STARTING_POSITION)
+        
