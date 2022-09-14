@@ -1,7 +1,10 @@
 from turtle import Turtle
+from os import path
 
 ALIGNMENT = "center"
 FONT = ("Courier", 24, "normal")
+THIS_FOLDER = path.dirname(path.abspath(__file__))        
+hs = THIS_FOLDER +"\\highscore.txt"
 
 class Scoreboard(Turtle):
     def __init__(self):
@@ -13,6 +16,7 @@ class Scoreboard(Turtle):
         self.highscore = self.read_highscore()
         self.update_scoreboard()
         self.goto(x=0, y=265)
+        
         
     def update_scoreboard(self):
         self.clear()
@@ -31,11 +35,11 @@ class Scoreboard(Turtle):
         self.update_scoreboard()
 
     def save_highscore(self):
-        with open(".\highscore.txt", mode="w") as file:
+        with open(file = hs, mode="w") as file:
             file.write(str(self.highscore))
             
     def read_highscore(self):
-        with open(file=".\highscore.txt") as file:
+        with open(file = hs) as file:
             return int(file.read()) # if not None else 0 '''Does not work if the file has nothing or is empty sadly.'''
 
     # def game_over(self):
