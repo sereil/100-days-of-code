@@ -18,10 +18,10 @@ while scoreboard.score < 50:
     answer_state = screen.textinput(title=f"{scoreboard.score}/50 States Correct", prompt="What's another state's name?").title()
    
     if answer_state == "Exit":
-        missing_states = []
-        for state in all_states:
-            if state not in guessed_states:
-                missing_states.append(state)
+        missing_states = [state for state in all_states if state not in guessed_states] #Day 26, List Comprehension updated!
+        # for state in all_states:
+        #     if state not in guessed_states:
+        #         missing_states.append(state)
         new_data = pandas.DataFrame(missing_states)
         new_data.to_csv("100-days-of-code\Day 25\states_to_learn.csv")
         break
