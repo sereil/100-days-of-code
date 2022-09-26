@@ -2,7 +2,7 @@ from tkinter import *
 
 window = Tk()
 window.title("Mile to Km Converter")
-window.minsize(width=350,height=200)
+
 
 def btn_convert():
     miles = float(input.get())
@@ -11,13 +11,13 @@ def btn_convert():
 
 input = Entry()
 
-input.grid(column=0, row=0)
+input.grid(column=1, row=0)
 
 lbl_miles = Label(text="Miles")
-lbl_miles.grid(column=1,row=0)
+lbl_miles.grid(column=2,row=0)
 
 lbl_km = Label(text="Km")
-lbl_km.grid(column=3,row=1)
+lbl_km.grid(column=4,row=1)
 
 lbl_equalto = Label(text="is equal to")
 lbl_equalto.grid(column=0,row=1)
