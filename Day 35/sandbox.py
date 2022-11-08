@@ -35,9 +35,9 @@ auth_token = os.environ['TWILIO_AUTH_TOKEN']
 client = Client(account_sid, auth_token)
 
 message = client.messages.create(
-  body='Hi there with environment tokens!',
+  body='GO GO WATER BREAK!',
   from_='+13143508974',
-  to='+18199685073'
+  to='+1_226_220_8470'
 )
 
 print(message.sid)
