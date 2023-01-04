@@ -18,19 +18,21 @@ soup = BeautifulSoup(content, "html.parser")
 price = soup.find("span", class_="a-price-whole")
 price = price.text.split(".")[0]
 
+print(price)
 
-def send_mail(email,price):
-    my_email = "sereil@live.ca"
-    password = None
-    with SMTP("smtp-mail.outlook.com", port=587) as connection:
 
-        '''Secure the Connection using TLS'''
-        connection.starttls()
+# def send_mail(email,price):
+#     my_email = "sereil@live.ca"
+#     password = None
+#     with SMTP("smtp-mail.outlook.com", port=587) as connection:
 
-        '''Set Credentials'''
-        connection.login(user=my_email, password=password)
-        connection.sendmail(from_addr=my_email, to_addrs=email,msg =f"Subject:Instant Pot Price Drop!\n\nThe Instant Pot 6Qt has dropped to {price}")
+#         '''Secure the Connection using TLS'''
+#         connection.starttls()
 
-if int(price) < 100:
-    send_mail(None,price)
+#         '''Set Credentials'''
+#         connection.login(user=my_email, password=password)
+#         connection.sendmail(from_addr=my_email, to_addrs=email,msg =f"Subject:Instant Pot Price Drop!\n\nThe Instant Pot 6Qt has dropped to {price}")
+
+# if int(price) < 100:
+#     send_mail(None,price)
 
