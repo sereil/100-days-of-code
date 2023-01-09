@@ -17,11 +17,8 @@ def launchBrowser():
     time.sleep(3)
     cookie_btn = driver.find_element(By.CSS_SELECTOR, "#bigCookie")
     
-    for n in range(1000):
-        cookie_btn.click()
-    
     while True:
-        pass
+        cookie_btn.click()        
 
 launchBrowser()    
     
